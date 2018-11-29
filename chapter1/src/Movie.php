@@ -5,25 +5,25 @@
  * Date: 2018/11/29
  * Time: 21:57
  */
-
+namespace App;
 class Movie
 {
     const CHILDRENS = 2;
-    const REGULAR = 2;
-    const NEW_RELEASE = 2;
+    const REGULAR = 0;
+    const NEW_RELEASE = 1;
 
     private $title;
-    private $price_code;
+    private $priceCode;
 
     /**
      * Movie constructor.
      * @param $title
-     * @param $price_code
+     * @param $priceCode
      */
-    public function __construct(string $title, int $price_code)
+    public function __construct(string $title, int $priceCode)
     {
         $this->title = $title;
-        $this->price_code = $price_code;
+        $this->priceCode = $priceCode;
     }
 
     /**
@@ -39,16 +39,14 @@ class Movie
      */
     public function getPriceCode()
     {
-        return $this->price_code;
+        return $this->priceCode;
     }
 
     /**
-     * @param mixed $price_code
+     * @param mixed $priceCode
      */
-    public function setPriceCode($price_code)
+    public function setPriceCode($priceCode)
     {
-        $this->price_code = $price_code;
+        $this->priceCode = $priceCode;
     }
-
-
 }

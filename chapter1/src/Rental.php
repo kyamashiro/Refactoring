@@ -5,21 +5,21 @@
  * Date: 2018/11/29
  * Time: 22:05
  */
-
+namespace App;
 class Rental
 {
     private $movie;
-    private $days_rented;
+    private $daysRented;
 
     /**
      * Rental constructor.
-     * @param $movie
-     * @param $days_rented
+     * @param Movie $movie
+     * @param int $daysRented
      */
-    public function __construct(Movie $movie, int $days_rented)
+    public function __construct(Movie $movie, int $daysRented)
     {
         $this->movie = $movie;
-        $this->days_rented = $days_rented;
+        $this->daysRented = $daysRented;
     }
 
     /**
@@ -35,8 +35,6 @@ class Rental
      */
     public function getDaysRented(): int
     {
-        return $this->days_rented;
+        return $this->daysRented;
     }
-
-
 }
