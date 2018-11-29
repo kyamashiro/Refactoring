@@ -20,7 +20,7 @@ class Movie
      * @param $title
      * @param $price_code
      */
-    public function __construct($title, $price_code)
+    public function __construct(string $title, int $price_code)
     {
         $this->title = $title;
         $this->price_code = $price_code;
