@@ -8,12 +8,19 @@
 
 namespace App;
 
+/**
+ * Class Customer
+ * @package App
+ */
 class Customer
 {
+    /**
+     * @var string
+     */
     private $name;
 
     /**
-     * @var Rental
+     * @var Rental[]
      */
     private $rentals;
 
@@ -26,6 +33,9 @@ class Customer
         $this->name = $name;
     }
 
+    /**
+     * @param Rental $args
+     */
     public function addRental(Rental $args): void
     {
         $this->rentals[] = $args;
@@ -39,14 +49,16 @@ class Customer
         return $this->name;
     }
 
+    /**
+     * @return string
+     */
     public function statement(): string
     {
         $totalAmount = 0;
         $frequentRenterPoints = 0;
-        $rentals = $this->rentals;
         $result = "Rental Record for {$this->getName()}\n";
 
-        foreach ($rentals as $each) {
+        foreach ($this->rentals as $each) {
             $thisAmount = $each->getCharge();
             //レンタルポイントを加算
             $frequentRenterPoints++;
