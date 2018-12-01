@@ -54,7 +54,6 @@ class Customer
      */
     public function statement(): string
     {
-        $totalAmount = 0;
         $frequentRenterPoints = 0;
         $result = "Rental Record for {$this->getName()}\n";
 
@@ -68,11 +67,23 @@ class Customer
             }
 
             $result .= "{$each->getMovie()->getTitle()} {$each->getCharge()}\n";
-            $totalAmount += $each->getCharge();
         }
 
-        $result .= "Amount owed is {$totalAmount}\n";
+        $result .= "Amount owed is {$this->getTotalCharge()}\n";
         $result .= "You earned {$frequentRenterPoints} frequent renter points\n";
         return $result;
+    }
+
+    /**
+     * @return float
+     */
+    private function getTotalCharge(): float
+    {
+        $totalAmount = 0;
+
+        foreach ($this->rentals as $each) {
+            $totalAmount += $each->getCharge();
+        }
+        return $totalAmount;
     }
 }
