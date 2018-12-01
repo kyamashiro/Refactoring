@@ -59,12 +59,7 @@ class Customer
 
         foreach ($this->rentals as $each) {
             //レンタルポイントを加算
-            $frequentRenterPoints++;
-            //新作を二日以上借りた場合はボーナスポイント
-            if (($each->getMovie()->getPriceCode() === Movie::NEW_RELEASE)
-                && $each->getDaysRented() > 1) {
-                $frequentRenterPoints++;
-            }
+            $frequentRenterPoints = $each->getFrequentRenterPoints();
 
             $result .= "{$each->getMovie()->getTitle()} {$each->getCharge()}\n";
         }
