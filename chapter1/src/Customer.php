@@ -47,10 +47,11 @@ class Customer
         $result = "Rental Record for {$this->getName()}\n";
 
         foreach ($rentals as $each) {
-            $thisAmount = $this->amountFor($each);
-
+            $thisAmount = $each->getCharge();
+            //レンタルポイントを加算
             $frequentRenterPoints++;
-            if (($each->getMovie()->getPriceCode() == Movie::NEW_RELEASE)
+            //新作を二日以上借りた場合はボーナスポイント
+            if (($each->getMovie()->getPriceCode() === Movie::NEW_RELEASE)
                 && $each->getDaysRented() > 1) {
                 $frequentRenterPoints++;
             }
@@ -60,7 +61,7 @@ class Customer
         }
 
         $result .= "Amount owed is {$totalAmount}\n";
-        $result .= "You earned {$frequentRenterPoints} frequent renter points \n";
+        $result .= "You earned {$frequentRenterPoints} frequent renter points\n";
         return $result;
     }
 

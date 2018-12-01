@@ -17,7 +17,7 @@ class CustomerTest extends TestCase
         $customer = new App\Customer("Martin Fowler");
         $customer->addRental(new \App\Rental(new \App\Movie("Kent Beck", 0), 1));
         $result = $customer->statement();
-        $str = "Rental Record for Martin Fowler\nKent Beck 3\nAmount owed is 3\nYou earned 1 frequent renter points \n";
+        $str = "Rental Record for Martin Fowler\nKent Beck 2\nAmount owed is 2\nYou earned 1 frequent renter points\n";
         $this->assertEquals($str, $result);
     }
 
@@ -26,7 +26,7 @@ class CustomerTest extends TestCase
         $customer = new App\Customer("Martin Fowler");
         $customer->addRental(new \App\Rental(new \App\Movie("Kent Beck", 0), 3));
         $result = $customer->statement();
-        $str = "Rental Record for Martin Fowler\nKent Beck 9\nAmount owed is 9\nYou earned 2 frequent renter points \n";
+        $str = "Rental Record for Martin Fowler\nKent Beck 3.5\nAmount owed is 3.5\nYou earned 1 frequent renter points\n";
         $this->assertEquals($str, $result);
     }
 
@@ -35,7 +35,16 @@ class CustomerTest extends TestCase
         $customer = new App\Customer("Martin Fowler");
         $customer->addRental(new \App\Rental(new \App\Movie("Kent Beck", 1), 1));
         $result = $customer->statement();
-        $str = "Rental Record for Martin Fowler\nKent Beck 3\nAmount owed is 3\nYou earned 1 frequent renter points \n";
+        $str = "Rental Record for Martin Fowler\nKent Beck 3\nAmount owed is 3\nYou earned 1 frequent renter points\n";
+        $this->assertEquals($str, $result);
+    }
+
+    public function testStatement_price_code_new_release_days2()
+    {
+        $customer = new App\Customer("Martin Fowler");
+        $customer->addRental(new \App\Rental(new \App\Movie("Kent Beck", 1), 2));
+        $result = $customer->statement();
+        $str = "Rental Record for Martin Fowler\nKent Beck 6\nAmount owed is 6\nYou earned 2 frequent renter points\n";
         $this->assertEquals($str, $result);
     }
 
@@ -44,7 +53,7 @@ class CustomerTest extends TestCase
         $customer = new App\Customer("Martin Fowler");
         $customer->addRental(new \App\Rental(new \App\Movie("Kent Beck", 2), 1));
         $result = $customer->statement();
-        $str = "Rental Record for Martin Fowler\nKent Beck 1.5\nAmount owed is 1.5\nYou earned 1 frequent renter points \n";
+        $str = "Rental Record for Martin Fowler\nKent Beck 1.5\nAmount owed is 1.5\nYou earned 1 frequent renter points\n";
         $this->assertEquals($str, $result);
     }
 
@@ -53,7 +62,7 @@ class CustomerTest extends TestCase
         $customer = new App\Customer("Martin Fowler");
         $customer->addRental(new \App\Rental(new \App\Movie("Kent Beck", 2), 4));
         $result = $customer->statement();
-        $str = "Rental Record for Martin Fowler\nKent Beck 1.5\nAmount owed is 1.5\nYou earned 1 frequent renter points \n";
+        $str = "Rental Record for Martin Fowler\nKent Beck 3\nAmount owed is 3\nYou earned 1 frequent renter points\n";
         $this->assertEquals($str, $result);
     }
 }
