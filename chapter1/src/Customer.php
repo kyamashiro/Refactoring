@@ -59,7 +59,6 @@ class Customer
         $result = "Rental Record for {$this->getName()}\n";
 
         foreach ($this->rentals as $each) {
-            $thisAmount = $each->getCharge();
             //レンタルポイントを加算
             $frequentRenterPoints++;
             //新作を二日以上借りた場合はボーナスポイント
@@ -68,8 +67,8 @@ class Customer
                 $frequentRenterPoints++;
             }
 
-            $result .= "{$each->getMovie()->getTitle()} {$thisAmount}\n";
-            $totalAmount += $thisAmount;
+            $result .= "{$each->getMovie()->getTitle()} {$each->getCharge()}\n";
+            $totalAmount += $each->getCharge();
         }
 
         $result .= "Amount owed is {$totalAmount}\n";
