@@ -59,7 +59,7 @@ class Customer
 
         foreach ($this->rentals as $each) {
             //レンタルポイントを加算
-            $frequentRenterPoints = $each->getFrequentRenterPoints();
+            $frequentRenterPoints += $each->getFrequentRenterPoints();
 
             $result .= "{$each->getMovie()->getTitle()} {$each->getCharge()}\n";
         }
