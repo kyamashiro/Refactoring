@@ -65,6 +65,22 @@ class Customer
         return $result;
     }
 
+    /**
+     * @return string
+     */
+    public function htmlStatement(): string
+    {
+        $result = "<h1>Rental Record for <b>{$this->getName()}</b></h1>\n";
+
+        foreach ($this->rentals as $each) {
+            $result .= "{$each->getMovie()->getTitle()} {$each->getCharge()}<br>\n";
+        }
+
+        $result .= "Amount owed is <b>{$this->getTotalCharge()}</b>\n";
+        $result .= "You earned <b>{$this->getTotalFrequentRenterPoints()}</b> frequent renter points\n";
+        return $result;
+    }
+
     private function getTotalFrequentRenterPoints(): int
     {
         $result = 0;
