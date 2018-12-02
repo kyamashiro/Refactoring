@@ -68,6 +68,7 @@ class Rental
 
     public function getFrequentRenterPoints()
     {
+        //新作を2日以上レンタルでボーナスポイント
         if ($this->getMovie()->getPriceCode() === Movie::NEW_RELEASE && $this->getDaysRented() > 1) {
             return 2;
         } else {

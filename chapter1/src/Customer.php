@@ -54,18 +54,24 @@ class Customer
      */
     public function statement(): string
     {
-        $frequentRenterPoints = 0;
         $result = "Rental Record for {$this->getName()}\n";
 
         foreach ($this->rentals as $each) {
-            //レンタルポイントを加算
-            $frequentRenterPoints += $each->getFrequentRenterPoints();
-
             $result .= "{$each->getMovie()->getTitle()} {$each->getCharge()}\n";
         }
 
         $result .= "Amount owed is {$this->getTotalCharge()}\n";
-        $result .= "You earned {$frequentRenterPoints} frequent renter points\n";
+        $result .= "You earned {$this->getTotalFrequentRenterPoints()} frequent renter points\n";
+        return $result;
+    }
+
+    private function getTotalFrequentRenterPoints(): int
+    {
+        $result = 0;
+        foreach ($this->rentals as $each) {
+            //レンタルポイントを加算
+            $result += $each->getFrequentRenterPoints();
+        }
         return $result;
     }
 
