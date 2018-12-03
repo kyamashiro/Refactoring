@@ -57,7 +57,7 @@ class Customer
         $result = "Rental Record for {$this->getName()}\n";
 
         foreach ($this->rentals as $each) {
-            $result .= "{$each->getMovie()->getTitle()} {$each->getCharge()}\n";
+            $result .= "{$each->getMovie()->getTitle()} {$each->getMovie()->getCharge($each->getDaysRented())}\n";
         }
 
         $result .= "Amount owed is {$this->getTotalCharge()}\n";
@@ -73,7 +73,7 @@ class Customer
         $result = "<h1>Rental Record for <b>{$this->getName()}</b></h1>\n";
 
         foreach ($this->rentals as $each) {
-            $result .= "{$each->getMovie()->getTitle()} {$each->getCharge()}<br>\n";
+            $result .= "{$each->getMovie()->getTitle()} {$each->getMovie()->getCharge($each->getDaysRented())}<br>\n";
         }
 
         $result .= "Amount owed is <b>{$this->getTotalCharge()}</b>\n";
@@ -99,7 +99,7 @@ class Customer
         $totalAmount = 0;
 
         foreach ($this->rentals as $each) {
-            $totalAmount += $each->getCharge();
+            $totalAmount += $each->getMovie()->getCharge($each->getDaysRented());
         }
         return $totalAmount;
     }
