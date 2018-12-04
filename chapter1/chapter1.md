@@ -9,3 +9,56 @@
 
 * 一時変数は､不必要なパラメータをたくさん受け渡してしまう原因になるのでできるだけ取り除く｡
 一時変数はメソッドの中だけで有効なので､長くて複雑なルーチンの原因となる｡
+
+他のオブジェクトの属性を調べるswitch文を書くことは､常に間違いである｡switch文は他のオブジェクトについてではなく､自分自身について行うべき｡
+```php
+switch ($this->getMovie()->getPriceCode()) {
+            case Movie::REGULAR:
+                $result += 2;
+                if ($this->getDaysRented() > 2) {
+                    $result += ($this->getDaysRented() - 2) * 1.5;
+                }
+                break;
+            case Movie::NEW_RELEASE:
+                $result += $this->getDaysRented() * 3;
+                break;
+            case Movie::CHILDRENS:
+                $result += 1.5;
+                if ($this->getDaysRented() > 3) {
+                    $result += ($this->getDaysRented() - 3) * 1.5;
+                }
+                break;
+        }
+```
+
+RentalクラスからMovieクラスに移動
+```php
+    public function getCharge(int $daysRented): float
+    {
+        $result = 0;
+
+        switch ($this->getPriceCode()) {
+            case Movie::REGULAR:
+                $result += 2;
+                if ($daysRented > 2) {
+                    $result += ($daysRented - 2) * 1.5;
+                }
+                break;
+            case Movie::NEW_RELEASE:
+                $result += $daysRented * 3;
+                break;
+            case Movie::CHILDRENS:
+                $result += 1.5;
+                if ($daysRented > 3) {
+                    $result += ($daysRented - 3) * 1.5;
+                }
+                break;
+        }
+        return $result;
+    }
+```
+
+なぜ貸出料金の計算をMovieクラスで行うのか?
+→映画の分類が追加される変更が予想されるから｡分類を変えたときの影響範囲をできるだけ小さくする｡
+そのため映画の分類をRentalオブジェクトに渡すのではなく､貸出期間をMovieオブジェクトに渡す
+getCharge()とgetTotalFrequentRenterPoints()をMovieクラスで処理をすることで､分類の変更によって影響を受ける2つの要素(料金とレンタルポイント)をまとめて当事者に任せることができる｡

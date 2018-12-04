@@ -39,13 +39,13 @@ class Rental
         return $this->daysRented;
     }
 
-    public function getFrequentRenterPoints()
+    public function getFrequentRenterPoints(): int
     {
-        //新作を2日以上レンタルでボーナスポイント
-        if ($this->getMovie()->getPriceCode() === Movie::NEW_RELEASE && $this->getDaysRented() > 1) {
-            return 2;
-        } else {
-            return 1;
-        }
+        return $this->movie->getFrequentRenterPoints($this->daysRented);
+    }
+
+    public function getCharge(): float
+    {
+        return $this->movie->getCharge($this->daysRented);
     }
 }
