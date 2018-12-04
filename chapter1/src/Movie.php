@@ -84,8 +84,8 @@ class Movie
         }
     }
 
-    public function getCharge(int $dayRented): float
+    public function getCharge(int $daysRented): float
     {
-        return $this->price->getCharge($dayRented);
+        return $this->price->getCharge($daysRented);
     }
 }
