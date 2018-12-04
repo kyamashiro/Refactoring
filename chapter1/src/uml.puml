@@ -1,0 +1,54 @@
+@startuml
+
+abstract class Price
+{
+    getCharge(int $days)
+    getFrequentRenterPoints(int $days)
+}
+
+class NewReleasePrice {
+    getCharge(int $days)
+}
+
+class ChildrenPrice {
+    getCharge(int $days)
+}
+
+class RegularPrice {
+    getCharge(int $days)
+}
+
+class Movie
+{
+    title:string
+    getCharge(int $days)
+    getFrequentRenterPoints(int $days)
+}
+
+class Rental
+{
+    int:daysRented
+    getCharge(int $days)
+    getFrequentRenterPoints(int $days)
+}
+
+class Customer
+{
+    string:name
+    statement()
+    htmlStatement()
+    getTotalCharge()
+    getTotalFrequentRenterPoints()
+}
+NewReleasePrice - RegularPrice
+RegularPrice - ChildrenPrice
+NewReleasePrice - ChildrenPrice
+
+NewReleasePrice -u-|> Price
+RegularPrice -u-|> Price
+ChildrenPrice -u-|> Price
+
+Movie -r->"1" Price
+Rental --u-->"1" Movie
+Customer -l->"*" Rental
+@enduml
