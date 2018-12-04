@@ -7,14 +7,21 @@
  */
 
 namespace App;
+
 class Movie
 {
     const CHILDRENS = 2;
     const REGULAR = 0;
     const NEW_RELEASE = 1;
 
+    /**
+     * @var string
+     */
     private $title;
-    private $priceCode;
+    /**
+     * @var Price
+     */
+    private $price;
 
     /**
      * Movie constructor.
@@ -40,45 +47,33 @@ class Movie
      */
     public function getPriceCode()
     {
-        return $this->priceCode;
+        return $this->price->getPriceCode();
     }
 
     /**
      * @param mixed $priceCode
      */
-    public function setPriceCode($priceCode)
+    public function setPriceCode(int $priceCode)
     {
-        $this->priceCode = $priceCode;
+        switch ($priceCode) {
+            case Movie::REGULAR:
+                $this->price = new RegularPrice();
+                break;
+            case Movie::NEW_RELEASE:
+                $this->price = new NewReleasePrice();
+                break;
+            case Movie::CHILDRENS:
+                $this->price = new ChildrenPrice();
+                break;
+            default:
+                throw new \InvalidArgumentException("不正な料金コード");
+        }
     }
 
     /**
      * @param int $daysRented
-     * @return float|int
+     * @return int
      */
-    public function getCharge(int $daysRented): float
-    {
-        $result = 0;
-
-        switch ($this->getPriceCode()) {
-            case Movie::REGULAR:
-                $result += 2;
-                if ($daysRented > 2) {
-                    $result += ($daysRented - 2) * 1.5;
-                }
-                break;
-            case Movie::NEW_RELEASE:
-                $result += $daysRented * 3;
-                break;
-            case Movie::CHILDRENS:
-                $result += 1.5;
-                if ($daysRented > 3) {
-                    $result += ($daysRented - 3) * 1.5;
-                }
-                break;
-        }
-        return $result;
-    }
-
     public function getFrequentRenterPoints(int $daysRented): int
     {
         //新作を2日以上レンタルでボーナスポイント
@@ -87,5 +82,10 @@ class Movie
         } else {
             return 1;
         }
+    }
+
+    public function getCharge(int $dayRented): float
+    {
+        return $this->price->getCharge($dayRented);
     }
 }
