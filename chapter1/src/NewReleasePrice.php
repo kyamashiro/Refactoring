@@ -19,4 +19,11 @@ class NewReleasePrice extends Price
     {
         return $daysRented * 3;
     }
+
+    public function getFrequentRenterPoints(int $daysRented): int
+    {
+        //Priceクラスのメソッドをオーバーライド
+        //新作を2日以上レンタルでボーナスポイント
+        return $daysRented > 1 ? 2 : 1;
+    }
 }
