@@ -19,6 +19,22 @@ class Account
      */
     private $daysOverdrawn;
 
+    /**
+     * @return AccountType
+     */
+    public function getType(): AccountType
+    {
+        return $this->type;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDaysOverdrawn()
+    {
+        return $this->daysOverdrawn;
+    }
+
     public function overdraftCharge()
     {
         return $this->type->overdraftCharge($this->daysOverdrawn);

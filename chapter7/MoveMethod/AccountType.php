@@ -9,17 +9,17 @@
 class AccountType
 {
     /**
-     * @param int $daysOverdrawn
+     * @param Account $account
      * @return float
      */
-    public function overdraftCharge(int $daysOverdrawn): float
+    public function overdraftCharge(Account $account): float
     {
         if ($this->isPremium()) {
             $result = 10;
-            if ($daysOverdrawn > 7) $result += ($daysOverdrawn - 7) * 0.85;
+            if ($account->getdaysOverdrawn() > 7) $result += ($account->getdaysOverdrawn() - 7) * 0.85;
             return $result;
         } else {
-            return $daysOverdrawn * 1.75;
+            return $account->getdaysOverdrawn() * 1.75;
         }
     }
 }
