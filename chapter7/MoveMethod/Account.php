@@ -10,7 +10,7 @@ class Account
 {
     /**
      * 口座の種類
-     * @var
+     * @var AccountType
      */
     private $type;
     /**
@@ -19,18 +19,9 @@ class Account
      */
     private $daysOverdrawn;
 
-    /**
-     * @return float
-     */
-    public function overdraftCharge(): float
+    public function overdraftCharge()
     {
-        if ($this->type->isPremium()) {
-            $result = 10;
-            if ($this->daysOverdrawn > 7) $result += ($this->daysOverdrawn - 7) * 0.85;
-            return $result;
-        } else {
-            return $this->daysOverdrawn * 1.75;
-        }
+        return $this->type->overdraftCharge($this->daysOverdrawn);
     }
 
     /**
