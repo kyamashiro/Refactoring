@@ -14,14 +14,11 @@ class Person
      * @var string
      */
     private $name;
+
     /**
-     * @var string
+     * @var TelephoneNumber
      */
-    private $officeAreaCode;
-    /**
-     * @var string
-     */
-    private $officeNumber;
+    private $officeTelephone;
 
     /**
      * @return string
@@ -40,39 +37,18 @@ class Person
     }
 
     /**
-     * @return string
+     * @return TelephoneNumber
      */
-    public function getOfficeAreaCode(): string
+    public function getOfficeTelephone(): TelephoneNumber
     {
-        return $this->officeAreaCode;
-    }
-
-    /**
-     * @param string $officeAreaCode
-     */
-    public function setOfficeAreaCode(string $officeAreaCode): void
-    {
-        $this->officeAreaCode = $officeAreaCode;
+        return $this->officeTelephone;
     }
 
     /**
      * @return string
      */
-    public function getOfficeNumber(): string
-    {
-        return $this->officeNumber;
-    }
-
-    /**
-     * @param string $officeNumber
-     */
-    public function setOfficeNumber(string $officeNumber): void
-    {
-        $this->officeNumber = $officeNumber;
-    }
-
     public function getTelephoneNumber(): string
     {
-        return "({$this->officeAreaCode}){$this->officeNumber}";
+        return $this->officeTelephone->getTelephoneNumber();
     }
 }
