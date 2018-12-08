@@ -5,6 +5,7 @@
  * Date: 2018/12/08
  * Time: 12:05
  */
+namespace MoveMethod;
 
 class Account
 {

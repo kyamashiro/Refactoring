@@ -6,6 +6,8 @@
  * Time: 17:59
  */
 
+namespace MoveField;
+
 class AccountType
 {
     /**

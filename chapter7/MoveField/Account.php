@@ -6,17 +6,14 @@
  * Time: 17:52
  */
 
+namespace MoveField;
+
 class Account
 {
     /**
      * @var AccountType
      */
     private $type;
-    /**
-     * 利率
-     * @var
-     */
-    private $interestRate;
 
     /**
      * @param float $amount
@@ -25,6 +22,6 @@ class Account
      */
     public function interestForAmountDays(float $amount, int $days): float
     {
-        return $this->interestRate * $amount * $days / 365;
+        return $this->type->getInterestRate() * $amount * $days / 365;
     }
 }

@@ -6,6 +6,8 @@
  * Time: 12:13
  */
 
+namespace MoveMethod;
+
 class AccountType
 {
     /**
